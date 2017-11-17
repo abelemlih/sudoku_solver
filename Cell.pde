@@ -1,11 +1,16 @@
 class Cell {
   
-  int num;
-  float width_len;
+  int num, index;
+  float x_pos, y_pos, width_len;
   
-  Cell(int num, float width_len) {
+  Cell(int index, int num, float width_len) {
+    this.index = index;
     this.num = num;
     this.width_len = width_len;
+  }
+  
+  int getIndex() {
+   return this.index; 
   }
   
   int getNum() {
@@ -14,6 +19,11 @@ class Cell {
   
   float getWidthLen() {
    return this.width_len; 
+  }
+  
+  void setCoordinates(float x_pos, float y_pos) {
+    this.x_pos = x_pos;
+    this.y_pos = y_pos;
   }
   
   void draw(float x, float y) {

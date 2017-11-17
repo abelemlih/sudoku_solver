@@ -15,11 +15,49 @@ class Grid {
     this.cellValues = new int[grid_size*grid_size];
     for (int i=0; i<GRID_CODE.length();i++) {
       cellValues[i] = Integer.parseInt(Character.toString(GRID_CODE.charAt(i)));
+      cellArray[i] = new Cell(i, cellValues[i],CELL_WIDTH);
     }
   }
   
   Cell[] getCellArray() {
     return this.cellArray;
+  }
+  
+  boolean checkCell(Cell cell) {
+    if (cell.getNum()==0)
+      return true;
+    
+    boolean valid = true;
+    //Valid by column
+    for (int i = cell.getIndex()%9; i<=(cell.getIndex()%9)+72; i=i+GRID_SIZE) {
+      if (cell.getIndex()!=cellArray[i].getIndex() && 
+          cellArray[i].getNum()!=0 &&
+          cell.getNum()==cellArray[i].getNum())
+        return false;
+    }
+    
+    //Valid by row
+    int starting_row_index = (int) Math.floor(cell.getIndex()/9)*9;
+    for (int i = starting_row_index; i<=starting_row_index+8; i=i+1) {
+      if (cell.getIndex()!=cellArray[i].getIndex() && 
+          cellArray[i].getNum()!=0 &&
+          cell.getNum()==cellArray[i].getNum())
+        return false;
+    }
+    
+    //valid by grid 3*3 unit
+    int starting_unit_index = (cell.getIndex()-(cell.getIndex()%3))-(((cell.getIndex()-(cell.getIndex()%3))/9)%3);
+    for (int i=0; i<3; i++) {
+      int start_cell_index = starting_unit_index + (9*i);
+      for (int j=0; j<3; j++) {
+        if (cell.getIndex()!=cellArray[start_cell_index+j].getIndex() && 
+            cellArray[start_cell_index+j].getNum()!=0 &&
+            cell.getNum()==cellArray[start_cell_index+j].getNum())
+          return false;
+      }
+    }
+    
+    return valid;
   }
   
   void draw() {
@@ -28,8 +66,8 @@ class Grid {
     for(int i=0; i<GRID_SIZE; i++) {
       float x_start = 100;
       for (int j=0; j<GRID_SIZE ; j++) {
-        cellArray[index] = new Cell(cellValues[index],CELL_WIDTH);
         strokeWeight(1);
+        cellArray[index].setCoordinates(x_start, y_start);
         cellArray[index].draw(x_start, y_start);
         x_start=x_start+CELL_WIDTH;
         index++;
@@ -48,5 +86,7 @@ class Grid {
       }
       y_start=y_start+GRID_UNIT_SIZE*CELL_WIDTH;
     }
+    
+    println(checkCell(cellArray[80]));
   }
 }
