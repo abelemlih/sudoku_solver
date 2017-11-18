@@ -21,6 +21,10 @@ class Cell {
    return this.width_len; 
   }
   
+  void setNum(int num) {
+    this.num = num;
+  }
+  
   void setCoordinates(float x_pos, float y_pos) {
     this.x_pos = x_pos;
     this.y_pos = y_pos;

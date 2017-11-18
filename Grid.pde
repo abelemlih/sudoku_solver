@@ -23,11 +23,19 @@ class Grid {
     return this.cellArray;
   }
   
+  ArrayList <Cell> getEmptyCells() {
+    ArrayList <Cell> empty_cells = new ArrayList<Cell>();
+    for(int i=0; i<this.cellArray.length ; i++) {
+      if (this.cellArray[i].getNum()==0)
+        empty_cells.add(this.cellArray[i]);
+    }
+    return empty_cells;
+  }
+  
   boolean checkCell(Cell cell) {
-    if (cell.getNum()==0)
-      return true;
-    
-    boolean valid = true;
+    if (cell.getNum()==0 || cell.getNum()>9)
+      return false;
+      
     //Valid by column
     for (int i = cell.getIndex()%9; i<=(cell.getIndex()%9)+72; i=i+GRID_SIZE) {
       if (cell.getIndex()!=cellArray[i].getIndex() && 
@@ -46,7 +54,9 @@ class Grid {
     }
     
     //valid by grid 3*3 unit
-    int starting_unit_index = (cell.getIndex()-(cell.getIndex()%3))-(((cell.getIndex()-(cell.getIndex()%3))/9)%3);
+    int cell_index = cell.getIndex();
+    int col_index = cell_index - (cell_index%3);
+    int starting_unit_index = col_index - 9*(((int) Math.floor(col_index/9))%3);
     for (int i=0; i<3; i++) {
       int start_cell_index = starting_unit_index + (9*i);
       for (int j=0; j<3; j++) {
@@ -57,7 +67,7 @@ class Grid {
       }
     }
     
-    return valid;
+    return true;
   }
   
   void draw() {
@@ -79,6 +89,7 @@ class Grid {
     for(int i=0; i<GRID_SIZE; i = i+GRID_UNIT_SIZE) {
       float x_start = 100;
       for (int j=0; j<GRID_SIZE ; j = j+GRID_UNIT_SIZE) {
+        stroke(0,0,0);
         strokeWeight(5);
         noFill();
         rect(x_start, y_start, GRID_UNIT_SIZE*CELL_WIDTH, GRID_UNIT_SIZE*CELL_WIDTH); 
@@ -86,7 +97,39 @@ class Grid {
       }
       y_start=y_start+GRID_UNIT_SIZE*CELL_WIDTH;
     }
-    
-    println(checkCell(cellArray[80]));
+  }
+  
+  void highlightValidity() {
+    int index = 0;
+    float y_start = 50;
+    for(int i=0; i<GRID_SIZE; i++) {
+      float x_start = 100;
+      for (int j=0; j<GRID_SIZE ; j++) {
+        strokeWeight(1);
+        cellArray[index].setCoordinates(x_start, y_start);
+        strokeWeight(3);
+        if(this.checkCell(cellArray[index]))
+          stroke(0,128,0);
+        else
+          stroke(255, 0, 0);
+        cellArray[index].draw(x_start, y_start);
+        x_start=x_start+CELL_WIDTH;
+        index++;
+      }
+      y_start=y_start+CELL_WIDTH;
+    }
+  
+    y_start = 50;
+    for(int i=0; i<GRID_SIZE; i = i+GRID_UNIT_SIZE) {
+      float x_start = 100;
+      for (int j=0; j<GRID_SIZE ; j = j+GRID_UNIT_SIZE) {
+        stroke(0,0,0);
+        strokeWeight(5);
+        noFill();
+        rect(x_start, y_start, GRID_UNIT_SIZE*CELL_WIDTH, GRID_UNIT_SIZE*CELL_WIDTH); 
+        x_start=x_start+GRID_UNIT_SIZE*CELL_WIDTH;
+      }
+      y_start=y_start+GRID_UNIT_SIZE*CELL_WIDTH;
+    }
   }
 }
