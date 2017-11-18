@@ -5,8 +5,8 @@ PlayButton playButton;
 
 void setup() {
   size(1200, 1000, P2D);
-  frameRate(9);
-  String grid_code = "152489376739256841468371295387124659591763428246895713914637582625948137873000000";
+  //frameRate(9);
+  String grid_code = "010020300004003020050000006007800050000100002080042000300007040000600807006000000";
   grid = new Grid(grid_code,9,3,100);
   solver = new Solver(grid);
   playButton = new PlayButton(20,20,20);

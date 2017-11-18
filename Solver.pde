@@ -20,9 +20,6 @@ class Solver {
   }
   
   void fillCell(Cell cell, int cell_index) {
-    println(cell.getIndex());
-    println(cell.getNum());
-    println(grid.checkCell(cell));
     if (grid.checkCell(cell)) {
       if (cell.getIndex()<80) {
         current_index = cell_index+1;
