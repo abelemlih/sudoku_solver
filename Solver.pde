@@ -21,7 +21,7 @@ class Solver {
   
   void fillCell(Cell cell, int cell_index) {
     if (grid.checkCell(cell)) {
-      if (cell.getIndex()<80) {
+      if (current_index<=missing_cells.size()-2) {
         current_index = cell_index+1;
       }
       else {

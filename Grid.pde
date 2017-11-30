@@ -23,6 +23,15 @@ class Grid {
     return this.cellArray;
   }
   
+  int getScore() {
+    int score = 0;
+    for (Cell cell : cellArray) {
+      if (checkCell(cell))
+        score++;
+    }
+    return score;
+  }
+  
   ArrayList <Cell> getEmptyCells() {
     ArrayList <Cell> empty_cells = new ArrayList<Cell>();
     for(int i=0; i<this.cellArray.length ; i++) {
@@ -32,19 +41,26 @@ class Grid {
     return empty_cells;
   }
   
-  boolean checkCell(Cell cell) {
-    if (cell.getNum()==0 || cell.getNum()>9)
-      return false;
-      
-    //Valid by column
+  int validCellsNum() {
+    int valid_cells_num = 0;
+    for (Cell c : this.cellArray) {
+      if (checkCell(c))
+        valid_cells_num++;
+    }
+    return valid_cells_num;  
+  }
+  
+  boolean colValid(Cell cell) {
     for (int i = cell.getIndex()%9; i<=(cell.getIndex()%9)+72; i=i+GRID_SIZE) {
       if (cell.getIndex()!=cellArray[i].getIndex() && 
           cellArray[i].getNum()!=0 &&
           cell.getNum()==cellArray[i].getNum())
         return false;
     }
-    
-    //Valid by row
+    return true;
+  }
+  
+  boolean rowValid(Cell cell) {
     int starting_row_index = (int) Math.floor(cell.getIndex()/9)*9;
     for (int i = starting_row_index; i<=starting_row_index+8; i=i+1) {
       if (cell.getIndex()!=cellArray[i].getIndex() && 
@@ -52,8 +68,10 @@ class Grid {
           cell.getNum()==cellArray[i].getNum())
         return false;
     }
-    
-    //valid by grid 3*3 unit
+    return true;
+  }
+  
+  boolean unitValid(Cell cell) {
     int cell_index = cell.getIndex();
     int col_index = cell_index - (cell_index%3);
     int starting_unit_index = col_index - 9*(((int) Math.floor(col_index/9))%3);
@@ -66,8 +84,21 @@ class Grid {
           return false;
       }
     }
-    
     return true;
+  }
+  
+  
+  boolean checkCell(Cell cell) {
+    if (cell.getNum()==0 || cell.getNum()>9)
+      return false;
+      
+    return colValid(cell) && rowValid(cell) && unitValid(cell);
+  }
+  
+  void switchCells(Cell c1, Cell c2) {
+    int c1_num = c1.getNum();
+    c1.setNum(c2.getNum());
+    c2.setNum(c1_num);
   }
   
   void draw() {
