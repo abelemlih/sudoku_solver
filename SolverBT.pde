@@ -1,12 +1,10 @@
-class Solver {
-  Grid grid;
+class SolverBT {
   ArrayList <Cell> missing_cells;
   int current_index;
   boolean solved;
   
-  Solver(Grid grid) {
-    this.grid = grid;
-    this.missing_cells = this.grid.getEmptyCells();
+  SolverBT() {
+    this.missing_cells = grid.getEmptyCells();
     this.current_index = 0;
     this.solved = false;
   }
@@ -16,6 +14,25 @@ class Solver {
   }
   
   void run() {
+    if(solved) {
+      playButton.play = false;
+      playButton.draw();
+      grid.draw();
+    }
+    else if (playButton.play){
+      background(255,255,255);
+      step();
+      playButton.draw();
+      grid.draw();
+    }
+    else {
+      playButton.draw();
+      grid.draw();
+    }
+  }
+  
+  
+  void step() {
     fillCell(missing_cells.get(current_index), current_index);
   }
   
@@ -29,18 +46,18 @@ class Solver {
       }
     }
     else {
-      if (cell.getNum()<9) {
+      if (cell.num<9) {
         cell.setNum(cell.getNum()+1);
         current_index = cell_index;
       }
       else {
         cell.setNum(0);
         current_index = cell_index - 1;
-        while(missing_cells.get(current_index).getNum()>=9) {
+        while(missing_cells.get(current_index).num>=9) {
           missing_cells.get(current_index).setNum(0);
           current_index--;
         }
-        missing_cells.get(current_index).setNum(missing_cells.get(current_index).getNum()+1);
+        missing_cells.get(current_index).setNum(missing_cells.get(current_index).num+1);
       }
     }
     

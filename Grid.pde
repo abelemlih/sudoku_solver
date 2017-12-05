@@ -23,7 +23,7 @@ class Grid {
     return this.cellArray;
   }
   
-  int getScore() {
+  int score() {
     int score = 0;
     for (Cell cell : cellArray) {
       if (checkCell(cell))
@@ -105,45 +105,17 @@ class Grid {
     int index = 0;
     float y_start = 50;
     for(int i=0; i<GRID_SIZE; i++) {
-      float x_start = 100;
+      float x_start = 50;
       for (int j=0; j<GRID_SIZE ; j++) {
-        strokeWeight(1);
-        cellArray[index].setCoordinates(x_start, y_start);
-        cellArray[index].draw(x_start, y_start);
-        x_start=x_start+CELL_WIDTH;
-        index++;
-      }
-      y_start=y_start+CELL_WIDTH;
-    }
-  
-    y_start = 50;
-    for(int i=0; i<GRID_SIZE; i = i+GRID_UNIT_SIZE) {
-      float x_start = 100;
-      for (int j=0; j<GRID_SIZE ; j = j+GRID_UNIT_SIZE) {
         stroke(0,0,0);
-        strokeWeight(5);
-        noFill();
-        rect(x_start, y_start, GRID_UNIT_SIZE*CELL_WIDTH, GRID_UNIT_SIZE*CELL_WIDTH); 
-        x_start=x_start+GRID_UNIT_SIZE*CELL_WIDTH;
-      }
-      y_start=y_start+GRID_UNIT_SIZE*CELL_WIDTH;
-    }
-  }
-  
-  void highlightValidity() {
-    int index = 0;
-    float y_start = 50;
-    for(int i=0; i<GRID_SIZE; i++) {
-      float x_start = 100;
-      for (int j=0; j<GRID_SIZE ; j++) {
         strokeWeight(1);
         cellArray[index].setCoordinates(x_start, y_start);
         strokeWeight(3);
-        if(this.checkCell(cellArray[index]))
-          stroke(0,128,0);
-        else
-          stroke(255, 0, 0);
         cellArray[index].draw(x_start, y_start);
+        if(!this.checkCell(cellArray[index]) && cellArray[index].num!=0) {
+          stroke(255, 0, 0);
+          line(cellArray[index].x_pos+5, cellArray[index].y_pos+2, cellArray[index].x_pos+5, cellArray[index].y_pos+30);
+        }
         x_start=x_start+CELL_WIDTH;
         index++;
       }
@@ -152,7 +124,7 @@ class Grid {
   
     y_start = 50;
     for(int i=0; i<GRID_SIZE; i = i+GRID_UNIT_SIZE) {
-      float x_start = 100;
+      float x_start = 50;
       for (int j=0; j<GRID_SIZE ; j = j+GRID_UNIT_SIZE) {
         stroke(0,0,0);
         strokeWeight(5);
