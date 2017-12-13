@@ -1,9 +1,10 @@
-class Grid {
+class Grid implements Comparator<Grid>{
   Cell[] cellArray;
   int[] cellValues;
   int GRID_SIZE;
   int GRID_UNIT_SIZE;
   float CELL_WIDTH;
+  double prob;
   String GRID_CODE;
   
   Grid(String grid_code, int grid_size, int grid_unit_size, float cell_width) {
@@ -19,6 +20,10 @@ class Grid {
     }
   }
   
+  Grid() {
+    
+  }
+  
   Cell[] getCellArray() {
     return this.cellArray;
   }
@@ -30,6 +35,10 @@ class Grid {
         score++;
     }
     return score;
+  }
+  
+  int compare(Grid g1, Grid g2) {
+    return g1.score()-g2.score();
   }
   
   ArrayList <Cell> getEmptyCells() {

@@ -9,7 +9,7 @@ PlayButton playButton;
 
 void setup() {
   size(1000, 1000, P2D);
-  //frameRate(1);
+  frameRate(1);
   grid = new Grid(grid_code,9,3,100);
   solver_bt = new SolverBT();
   solver_sa = new SolverSA();
@@ -20,8 +20,8 @@ void setup() {
 void draw() {
   background(255,255,255);
   //solver_bt.run();
-  solver_sa.run();
-  //solver_ga.run();
+  //solver_sa.run();
+  solver_ga.run();
 }
 
 void mouseClicked() {
