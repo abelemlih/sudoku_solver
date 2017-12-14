@@ -15,6 +15,8 @@ class SolverBT {
   
   void run() {
     if(solved) {
+      end_time = System.nanoTime();
+      print("Start time: "+start_time+" ; end time: "+end_time);
       playButton.play = false;
       playButton.draw();
       grid.draw();
