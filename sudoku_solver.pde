@@ -1,6 +1,11 @@
+//Sudoku list:
+//Easy grids:
+//
+
 import java.util.*;
+
+String grid_code = "000000600200501009580060002007100093000000000008300061920040008300807006000000900";
 Grid grid;
-String grid_code = "207005010003020000654810920070300000802070401000001060045038192000050600010700805";
 SolverBT solver_bt;
 SolverSA solver_sa;
 SolverGA solver_ga;
@@ -9,7 +14,7 @@ PlayButton playButton;
 
 void setup() {
   size(1000, 1000, P2D);
-  frameRate(1);
+  //frameRate(1);
   grid = new Grid(grid_code,9,3,100);
   solver_bt = new SolverBT();
   solver_sa = new SolverSA();
@@ -19,9 +24,9 @@ void setup() {
 
 void draw() {
   background(255,255,255);
-  //solver_bt.run();
+  solver_bt.run();
   //solver_sa.run();
-  solver_ga.run();
+  //solver_ga.run();
 }
 
 void mouseClicked() {

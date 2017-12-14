@@ -1,10 +1,10 @@
 class Grid implements Comparator<Grid>{
   Cell[] cellArray;
-  int[] cellValues;
   int GRID_SIZE;
   int GRID_UNIT_SIZE;
+  int index;
   float CELL_WIDTH;
-  double prob;
+  float prob;
   String GRID_CODE;
   
   Grid(String grid_code, int grid_size, int grid_unit_size, float cell_width) {
@@ -13,16 +13,12 @@ class Grid implements Comparator<Grid>{
     this.GRID_UNIT_SIZE = grid_unit_size;
     this.CELL_WIDTH = cell_width;
     this.cellArray = new Cell[grid_size*grid_size];
-    this.cellValues = new int[grid_size*grid_size];
     for (int i=0; i<GRID_CODE.length();i++) {
-      cellValues[i] = Integer.parseInt(Character.toString(GRID_CODE.charAt(i)));
-      cellArray[i] = new Cell(i, cellValues[i],CELL_WIDTH);
+      int cell_value = Integer.parseInt(Character.toString(GRID_CODE.charAt(i)));
+      cellArray[i] = new Cell(i, cell_value,CELL_WIDTH);
     }
   }
   
-  Grid() {
-    
-  }
   
   Cell[] getCellArray() {
     return this.cellArray;
