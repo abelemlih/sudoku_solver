@@ -1,5 +1,5 @@
 class SolverGA {
-  int POPULATION_SIZE = 200;
+  int POPULATION_SIZE = 500;
   Map<String, ArrayList<Cell>> rowsMap = new HashMap<String, ArrayList<Cell>>();
   List<Grid> population = new ArrayList<Grid>();
   List<Grid> new_population = new ArrayList<Grid>();
@@ -60,11 +60,11 @@ class SolverGA {
     while(new_population.size() <= population.size()-2) {
       Grid child1 = randomGrid();
       Grid child2 = randomGrid();
-      if(random.nextFloat() <= 0.5)
+      if(random.nextFloat() <= 0.2)
         crossoverGrids(child1, child2);
-      if(random.nextFloat() <= 0.1)
+      if(random.nextFloat() <= 0.05)
         mutateGrid(child1);
-      if(random.nextFloat() <= 0.1)
+      if(random.nextFloat() <= 0.05)
         mutateGrid(child2);
       new_population.add(child1);
       new_population.add(child2);
@@ -116,11 +116,16 @@ class SolverGA {
   }
   
   void crossoverGrids(Grid g1, Grid g2) {
-    int random_starting_index = random.nextInt(9)*9;
-    for (int i=random_starting_index; i<random_starting_index+9; i++) {
-      Cell switch_cell = g1.cellArray[i];
-      g1.cellArray[i] = g2.cellArray[i];
-      g2.cellArray[i] = switch_cell;
+    int index[] = {random.nextInt(9)*9, random.nextInt(9)*9};
+    while(index[0]==index[1]) {
+      index[1] = random.nextInt(9)*9;
+    }
+    for (int i : index) {
+      for (int j=i; j<i+9; j++) {
+        Cell switch_cell = g1.cellArray[j];
+        g1.cellArray[j] = g2.cellArray[j];
+        g2.cellArray[j] = switch_cell;
+      }
     }
   }
   

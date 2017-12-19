@@ -19,9 +19,9 @@ void setup() {
       grids.add(s.substring(0,81));
     }
   }
-  grid_code = grids.get(0);
+  grid_code = grids.get(3);
   grid = new Grid(grid_code,9,3,100);
-  solver_bt = new SolverBT();
+  //solver_bt = new SolverBT();
   solver_sa = new SolverSA();
   //solver_ga = new SolverGA();
   playButton = new PlayButton(500,20,20);
