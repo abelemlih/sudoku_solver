@@ -14,7 +14,7 @@ The red lines indicate invalid cells, which are cells with a number that is not 
 
 ### Solver Implementation
 
-You can start the visualization in this project by running the file `sudoku_solver.pde`. Only one solver can run at the time, therefore the commands to run any other solver must be commented.
+You can start the visualization in this project by running the file `sudoku_solver.pde`. Only one solver can run at the time, therefore the commands to run any other solver must be disabled.
 
 * `SolverSA`: At each step, the simulated annealing algorithm chooses a random row, and switches two random cells within that row.
 
